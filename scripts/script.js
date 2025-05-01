@@ -1,3 +1,4 @@
+// Les bannieres
 const slides = [
 	{
 		"image":"./assets/images/slideshow/slide1.jpg",
@@ -17,19 +18,42 @@ const slides = [
 	}
 ]
 
+// Fleches, banniere, dots
 const arrowRight = document.getElementById('arrow-right')
 const arrowLeft = document.getElementById('arrow-left')
 let bannerImg = document.querySelector('.banner-img')
 let tagLine = document.querySelector('.tagLine')
+const dots = document.querySelector('.dots')
 
 let currentIndex = 0
+
+// Ajout des dots en fonction des slides
+for (i = 0; i < slides.length; i++) {
+	const dot = document.createElement('div')
+	dot.classList.add('dot')
+	dots.appendChild(dot)
+}
+const allDots = document.querySelectorAll('.dot')
+
+
+// Mise a jour de la banniere et des dots
+updateBanner()
 
 function updateBanner () {
 	bannerImg.src = slides[currentIndex].image
 	tagLine.innerHTML = slides[currentIndex].tagLine
+
+	allDots.forEach((dot, index) => {
+		if (index === currentIndex) {
+			dot.classList.add('dot_selected')
+		} else {
+			dot.classList.remove('dot_selected')
+		}
+	})
 }
 
 
+// Fleches events
 arrowRight.addEventListener('click', () => {
 	currentIndex++
 	if (currentIndex >= slides.length) {
